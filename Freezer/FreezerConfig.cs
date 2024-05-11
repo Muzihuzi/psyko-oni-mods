@@ -71,7 +71,7 @@ namespace Psyko.Freezer
         public override void ConfigureBuildingTemplate(GameObject go, Tag prefab_tag)
         {
             base.ConfigureBuildingTemplate(go, prefab_tag);
-            go.GetComponent<KPrefabID>().AddTag(RoomConstraints.ConstraintTags.FoodStorage);
+            go.GetComponent<KPrefabID>().AddTag(RoomConstraints.ConstraintTags.Refrigerator);
         }
 
         public override void DoPostConfigureComplete(GameObject go)
@@ -97,6 +97,7 @@ namespace Psyko.Freezer
             go.AddOrGet<DropAllWorkable>();
             go.AddOrGetDef<RocketUsageRestriction.Def>().restrictOperational = false;
             go.AddOrGetDef<StorageController.Def>();
+            PPatchTools.GetTypeSafe("PeterHan.NoWasteWant.NoWasteWantPatches")?.GetMethodSafe("AddFreshnessControl", true, typeof(GameObject))?.Invoke(null, new object[] { go });
         }
     }
 }
